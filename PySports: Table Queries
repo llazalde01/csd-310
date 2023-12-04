@@ -1,0 +1,35 @@
+import mysql.connector
+
+# Replace with your own database connection details
+db = mysql.connector.connect(
+  host="localhost",
+  user="yourusername",
+  password="yourpassword",
+  database="yourdatabasename"
+)
+
+cursor = db.cursor()
+
+# Your SELECT queries
+query1 = "SELECT team_id, team_name, mascot FROM team"
+query2 = "SELECT player_id, first_name, last_name, team_id FROM player"
+
+# Execute the first query
+cursor.execute(query1)
+
+# Fetch and display the results
+print("-- DISPLAYING TEAM RECORDS --")
+for (team_id, team_name, mascot) in cursor:
+  print(f"Team ID: {team_id} \nTeam Name: {team_name} \nMascot: {mascot}")
+
+# Execute the second query
+cursor.execute(query2)
+
+# Fetch and display the results
+print("\n-- DISPLAYING PLAYER RECORDS --")
+for (player_id, first_name, last_name, team_id) in cursor:
+  print(f"Player ID: {player_id} \nFirst Name: {first_name} \nLast Name: {last_name} \nTeam ID: {team_id}")
+
+# Close the cursor and connection
+cursor.close()
+db.close()
